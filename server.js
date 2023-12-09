@@ -11,22 +11,40 @@ const server = http.createServer((request, response) => {
         fs.readFile("index.html", (error, fileContent) => {
             if (error) {
                 response.writeHead(404);
-                response.write("Error. File not found");
+                response.write("Error. Page not found");
             } else {
+                response.writeHead(200);
                 response.write(fileContent);
             }
             response.end();
         });
     } else if (requestUrl === "/about") {
-        response.write(`Hello from ${requestUrl}`);
+        fs.readFile("about.html", (error, fileContent) => {
+            if (error) {
+                response.writeHead(404);
+                response.write("Error. Page not found");
+            } else {
+                response.writeHead(200);
+                response.write(fileContent);
+            }
+            response.end();
+        });
     } else if (requestUrl === "/contact") {
-        response.write(`Hello from ${requestUrl}`);
+        fs.readFile("contact.html", (error, fileContent) => {
+            if (error) {
+                response.writeHead(404);
+                response.write("Error. Page not found");
+            } else {
+                response.writeHead(200);
+                response.write(fileContent);
+            }
+            response.end();
+        });
     } else {
-        response.write(`${requestUrl} path does not exist`);
+        response.writeHead(404);
+        response.write(`${requestUrl} path not found`);
+        response.end();
     }
-
-    //response.write(`Hello from port ${port}`);
-    //response.end();
 });
 
 server.listen(port, (error) => {
